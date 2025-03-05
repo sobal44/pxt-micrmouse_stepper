@@ -4,13 +4,6 @@
 * Czytaj więcej na https://makecode.microbit.org/blocks/custom
 */
 
-enum MyEnum {
-    //% block="one"
-    One,
-    //% block="two"
-    Two
-}
-
 /**
  * Blok z moimi Funkcjami
  */
@@ -331,7 +324,7 @@ namespace sobal {
         */
     //% weight=50
     //% blockId=Silnik_Krokowy_Obrot block="Silnik_Krokowy_Obrot| Kierunek dir %direction1|Kąt [*] %degree1| speed %speed| Ilosc krokow na silnik %ikns| Srednica koła %fi"
-    //% speed.min=50 speed.max=120
+    //% speed.min=0 speed.max=200
     //% direction1.fieldEditor="gridpicker" direction1.fieldOptions.columns=2
     //% direction2.fieldEditor="gridpicker" direction2.fieldOptions.columns=2
     export function Silnik_Krokowy_Obrot(direction1: Dir, degree1: number, speed: number, ikns: number, fi: number): void {
@@ -356,7 +349,7 @@ namespace sobal {
     */
     //% weight=50
     //% blockId=Silnik_Krokowy_Ruch_na_odleglosc block="Silnik_Krokowy_Ruch_na_odleglosc| Kierunek dir %direction1|Odleglosc [mm] %degree1| speed %speed| Ilosc krokow na silnik %ikns| Srednica koła %fi"
-    //% speed.min=50 speed.max=120
+    //% speed.min=0 speed.max=200
     //% direction1.fieldEditor="gridpicker" direction1.fieldOptions.columns=2
     //% direction2.fieldEditor="gridpicker" direction2.fieldOptions.columns=2
     export function Silnik_Krokowy_Ruch_na_odleglosc(direction1: Dir, degree1: number, speed: number, ikns: number, fi: number): void {
@@ -382,7 +375,7 @@ namespace sobal {
     */
     //% weight=40
     //% blockId=Silnik_Krokowy block="Silniki_Krokowe M1_M2 dir %direction1|degree %degree1|M3_M4 dir %direction2|degree %degree2 speed %speed"
-    //% speed.min=50 speed.max=120
+    //% speed.min=0 speed.max=200
     //% direction1.fieldEditor="gridpicker" direction1.fieldOptions.columns=2
     //% direction2.fieldEditor="gridpicker" direction2.fieldOptions.columns=2
     export function Silnik_Krokowy(direction1: Dir, degree1: number, direction2: Dir, degree2: number, speed: number): void {
