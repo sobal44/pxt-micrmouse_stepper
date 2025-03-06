@@ -332,7 +332,7 @@ namespace sobal {
             initPCA9685()
         }
         let timeout1 = 0;
-        if (direction1 < 0) { direction1 = direction1 * -1; }
+        if (degree1 < 0) { direction1 = direction1 * -1; }
         let Degree1 = Math.abs(degree1) / 180 * ikns;
         setFreq(speed);
 
