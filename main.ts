@@ -10,8 +10,9 @@ function Odczyt_czujnikow () {
     Czujnik_Przod = makerbit.getUltrasonicDistance(DistanceUnit.CM)
 }
 input.onSound(DetectedSound.Loud, function () {
-    serial.writeNumber(9 & 4)
-    serial.writeLine("")
+    Wylanie_Wody(Wilekosc_Labiryntu_X, Wielkosc_Labiryntu_Y2)
+    serial.writeLine("Update wylania wody")
+    Update_wylania_wody()
 })
 function Kalibracja_o_tylnia_sciane () {
     sobal.Silnik_Krokowy_Ruch_na_odleglosc(
@@ -64,19 +65,16 @@ function Ruch_Lewo () {
     sobal.Dir.CCW,
     90,
     150,
-    3050,
+    3375,
     55.7
     )
     Orientacja_Robota = Orientacja_Robota - 1
-    if (true) {
-        if (Orientacja_Robota < -1) {
-            Orientacja_Robota = 2
-        }
+    if (Orientacja_Robota < -1) {
+        Orientacja_Robota = 2
     }
 }
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     Wylanie_Wody(Wilekosc_Labiryntu_X, Wielkosc_Labiryntu_Y2)
-    wyslanie_Tablicy_przez_port_szeregowy(Labirynt)
     Przeszukanie_Labiryntu()
 })
 function Wylanie_Wody (Wielkosc_Lbairyntu_X: number, Wielkosc_Labiryntu_Y: number) {
@@ -114,106 +112,106 @@ input.onButtonPressed(Button.AB, function () {
 })
 function Update_Scian_Labiryntu (Lewa: number, Przod: number, Prawa: number, Orientacja: number) {
     if (Orientacja == 0) {
-        if (Przod < 50 && (Lewa < 50 && Prawa < 50)) {
+        if (Przod < Limit_Przod && (Lewa < Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 7
         }
-        if (Przod > 50 && (Lewa < 50 && Prawa < 50)) {
+        if (Przod > Limit_Przod && (Lewa < Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 5
         }
-        if (Przod < 50 && (Lewa > 50 && Prawa < 50)) {
+        if (Przod < Limit_Przod && (Lewa > Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 6
         }
-        if (Przod > 50 && (Lewa > 50 && Prawa < 50)) {
+        if (Przod > Limit_Przod && (Lewa > Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 4
         }
-        if (Przod < 50 && (Lewa < 50 && Prawa > 50)) {
+        if (Przod < Limit_Przod && (Lewa < Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 3
         }
-        if (Przod > 50 && (Lewa < 50 && Prawa > 50)) {
+        if (Przod > Limit_Przod && (Lewa < Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 1
         }
-        if (Przod < 50 && (Lewa > 50 && Prawa > 50)) {
+        if (Przod < Limit_Przod && (Lewa > Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 2
         }
-        if (Przod > 50 && (Lewa > 50 && Prawa > 50)) {
+        if (Przod > Limit_Przod && (Lewa > Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 0
         }
     }
     if (Orientacja == -1) {
-        if (Przod < 50 && (Lewa < 50 && Prawa < 50)) {
+        if (Przod < Limit_Przod && (Lewa < Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 11
         }
-        if (Przod > 50 && (Lewa < 50 && Prawa < 50)) {
+        if (Przod > Limit_Przod && (Lewa < Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 10
         }
-        if (Przod < 50 && (Lewa > 50 && Prawa < 50)) {
+        if (Przod < Limit_Przod && (Lewa > Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 3
         }
-        if (Przod > 50 && (Lewa > 50 && Prawa < 50)) {
+        if (Przod > Limit_Przod && (Lewa > Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 2
         }
-        if (Przod < 50 && (Lewa < 50 && Prawa > 50)) {
+        if (Przod < Limit_Przod && (Lewa < Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 9
         }
-        if (Przod > 50 && (Lewa < 50 && Prawa > 50)) {
+        if (Przod > Limit_Przod && (Lewa < Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 8
         }
-        if (Przod < 50 && (Lewa > 50 && Prawa > 50)) {
+        if (Przod < Limit_Przod && (Lewa > Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 1
         }
-        if (Przod > 50 && (Lewa > 50 && Prawa > 50)) {
+        if (Przod > Limit_Przod && (Lewa > Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 0
         }
     }
     if (Orientacja == 1) {
-        if (Przod < 50 && (Lewa < 50 && Prawa < 50)) {
+        if (Przod < Limit_Przod && (Lewa < Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 14
         }
-        if (Przod > 50 && (Lewa < 50 && Prawa < 50)) {
+        if (Przod > Limit_Przod && (Lewa < Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 10
         }
-        if (Przod < 50 && (Lewa > 50 && Prawa < 50)) {
+        if (Przod < Limit_Przod && (Lewa > Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 12
         }
-        if (Przod > 50 && (Lewa > 50 && Prawa < 50)) {
+        if (Przod > Limit_Przod && (Lewa > Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 8
         }
-        if (Przod < 50 && (Lewa < 50 && Prawa > 50)) {
+        if (Przod < Limit_Przod && (Lewa < Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 6
         }
-        if (Przod > 50 && (Lewa < 50 && Prawa > 50)) {
+        if (Przod > Limit_Przod && (Lewa < Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 2
         }
-        if (Przod < 50 && (Lewa > 50 && Prawa > 50)) {
+        if (Przod < Limit_Przod && (Lewa > Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 4
         }
-        if (Przod > 50 && (Lewa > 50 && Prawa > 50)) {
+        if (Przod > Limit_Przod && (Lewa > Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 0
         }
     }
     if (Orientacja == 2) {
-        if (Przod < 50 && (Lewa < 50 && Prawa < 50)) {
+        if (Przod < Limit_Przod && (Lewa < Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 13
         }
-        if (Przod > 50 && (Lewa < 50 && Prawa < 50)) {
+        if (Przod > Limit_Przod && (Lewa < Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 5
         }
-        if (Przod < 50 && (Lewa > 50 && Prawa < 50)) {
+        if (Przod < Limit_Przod && (Lewa > Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 9
         }
-        if (Przod > 50 && (Lewa > 50 && Prawa < 50)) {
+        if (Przod > Limit_Przod && (Lewa > Limit_Lewo && Prawa < Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 1
         }
-        if (Przod < 50 && (Lewa < 50 && Prawa > 50)) {
+        if (Przod < Limit_Przod && (Lewa < Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 12
         }
-        if (Przod > 50 && (Lewa < 50 && Prawa > 50)) {
+        if (Przod > Limit_Przod && (Lewa < Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 4
         }
-        if (Przod < 50 && (Lewa > 50 && Prawa > 50)) {
+        if (Przod < Limit_Przod && (Lewa > Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 8
         }
-        if (Przod > 50 && (Lewa > 50 && Prawa > 50)) {
+        if (Przod > Limit_Przod && (Lewa > Limit_Lewo && Prawa > Limit_Prawo)) {
             Sciany_Labiryntu[polozenie_w_labiryncie] = 0
         }
     }
@@ -223,7 +221,7 @@ function Ruch_Obrot_Prawo () {
     sobal.Dir.CW,
     90,
     150,
-    3050,
+    3375,
     55.7
     )
     Orientacja_Robota = Orientacja_Robota + 1
@@ -261,22 +259,46 @@ function Update_wylania_wody () {
     14
     ]
     Kolejka = []
-    Kolejka.push((1 + Labirynt_X) * Labirynt_Y + Labirynt_X)
-    while (false) {
+    // Dodje Komurke Cel do Kolejki
+    Kolejka.push(Labirynt_Y * (1 + Wilekosc_Labiryntu_X) + Labirynt_X)
+    Kolejka_step = 1
+    while (Kolejka.length != 0) {
         // Sprawdzenie czy jest scianka na kierunku
-        if (test[Kolejka[0]] & 1) {
-        	
+        if ((Sciany_Labiryntu[Kolejka[0]] & 1) == 0) {
+            if (Labirynt[Kolejka[0] - 1] < 100) {
+                Kolejka.push(Kolejka[0] - 1)
+                Labirynt[Kolejka[0] - 1] = Labirynt[Kolejka[0]] + 1
+                serial.writeValue("E", test[Kolejka[0]] & 1)
+            }
         }
-        if (test[Kolejka[0]] & 2) {
-        	
+        if ((Sciany_Labiryntu[Kolejka[0]] & 2) == 0) {
+            if (Labirynt[Kolejka[0] + 5] < 100) {
+                Kolejka.push(Kolejka[0] + 5)
+                Labirynt[Kolejka[0] + 5] = Labirynt[Kolejka[0]] + 1
+                serial.writeValue("N", test[Kolejka[0]] & 2)
+            }
         }
-        if (test[Kolejka[0]] & 4) {
-        	
+        if ((Sciany_Labiryntu[Kolejka[0]] & 4) == 0) {
+            if (Labirynt[Kolejka[0] + 1] < 100) {
+                Labirynt[Kolejka[0] + 1] = Labirynt[Kolejka[0]] + 1
+                serial.writeValue("W", test[Kolejka[0]] & 4)
+                Kolejka.push(Kolejka[0] + 1)
+            }
         }
-        if (test[Kolejka[0]] & 8) {
-        	
+        if ((Sciany_Labiryntu[Kolejka[0]] & 8) == 0) {
+            if (Labirynt[Kolejka[0] - 5] < 100) {
+                Labirynt[Kolejka[0] - 5] = Labirynt[Kolejka[0]] + 1
+                serial.writeValue("W", test[Kolejka[0]] & 8)
+                Kolejka.push(Kolejka[0] - 5)
+            }
         }
+        Labirynt[Kolejka[0]] = Labirynt[Kolejka[0]] + 1000
+        Kolejka_step += 1
+        Kolejka.shift()
+        serial.writeValue("x", Kolejka_step)
     }
+    serial.writeLine("")
+    wyslanie_Tablicy_przez_port_szeregowy(Labirynt)
 }
 input.onButtonPressed(Button.B, function () {
     if (Set_Up_Target == 0) {
@@ -341,76 +363,64 @@ function Przeszukanie_Labiryntu () {
         // -
         wyslanie_Tablicy_przez_port_szeregowy(Sciany_Labiryntu)
         if (Orientacja_Robota == 0) {
-            if (Labirynt[polozenie_w_labiryncie + (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && makerbit.getUltrasonicDistance(DistanceUnit.CM) > 5) {
+            if (Labirynt[polozenie_w_labiryncie + (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && makerbit.getUltrasonicDistance(DistanceUnit.CM) > Limit_Przod) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie + 5
                 Ruch_Przod()
-            } else if (Labirynt[polozenie_w_labiryncie + 1] < Labirynt[polozenie_w_labiryncie] && Czujnik_Prawy > 60) {
+            } else if (Labirynt[polozenie_w_labiryncie + 1] < Labirynt[polozenie_w_labiryncie] && Czujnik_Prawy > Limit_Prawo) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie + 1
                 Ruch_Obrot_Prawo()
                 Ruch_Przod()
-            } else if (Labirynt[polozenie_w_labiryncie - 1] < Labirynt[polozenie_w_labiryncie] && Czujnik_Lewy > 60) {
+            } else if (Labirynt[polozenie_w_labiryncie - 1] < Labirynt[polozenie_w_labiryncie] && Czujnik_Lewy > Limit_Lewo) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie - 1
                 Ruch_Lewo()
                 Ruch_Przod()
             } else {
-                polozenie_w_labiryncie = polozenie_w_labiryncie - 5
-                Ruch_Lewo()
-                Ruch_Lewo()
-                Ruch_Przod()
+                Update_wylania_wody()
             }
         } else if (Orientacja_Robota == 1) {
-            if (Labirynt[polozenie_w_labiryncie + (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && Czujnik_Lewy > 60) {
+            if (Labirynt[polozenie_w_labiryncie + (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && Czujnik_Lewy > Limit_Lewo) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie + 5
                 Ruch_Lewo()
                 Ruch_Przod()
-            } else if (Labirynt[polozenie_w_labiryncie + 1] < Labirynt[polozenie_w_labiryncie] && makerbit.getUltrasonicDistance(DistanceUnit.CM) > 5) {
+            } else if (Labirynt[polozenie_w_labiryncie + 1] < Labirynt[polozenie_w_labiryncie] && makerbit.getUltrasonicDistance(DistanceUnit.CM) > Limit_Przod) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie + 1
                 Ruch_Przod()
-            } else if (Labirynt[polozenie_w_labiryncie - (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && Czujnik_Prawy > 60) {
+            } else if (Labirynt[polozenie_w_labiryncie - (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && Czujnik_Prawy > Limit_Prawo) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie - 5
                 Ruch_Obrot_Prawo()
                 Ruch_Przod()
             } else {
-                polozenie_w_labiryncie = polozenie_w_labiryncie - 1
-                Ruch_Obrot_Prawo()
-                Ruch_Obrot_Prawo()
-                Ruch_Przod()
+                Update_wylania_wody()
             }
         } else if (Orientacja_Robota == -1) {
-            if (Labirynt[polozenie_w_labiryncie + (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && Czujnik_Prawy > 60) {
+            if (Labirynt[polozenie_w_labiryncie + (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && Czujnik_Prawy > Limit_Prawo) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie + 5
                 Ruch_Obrot_Prawo()
                 Ruch_Przod()
-            } else if (Labirynt[polozenie_w_labiryncie - 1] < Labirynt[polozenie_w_labiryncie] && makerbit.getUltrasonicDistance(DistanceUnit.CM) > 5) {
+            } else if (Labirynt[polozenie_w_labiryncie - 1] < Labirynt[polozenie_w_labiryncie] && makerbit.getUltrasonicDistance(DistanceUnit.CM) > Limit_Przod) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie - 1
                 Ruch_Przod()
-            } else if (Labirynt[polozenie_w_labiryncie - (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && Czujnik_Lewy > 60) {
+            } else if (Labirynt[polozenie_w_labiryncie - (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && Czujnik_Lewy > Limit_Lewo) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie - 5
                 Ruch_Lewo()
                 Ruch_Przod()
             } else {
-                polozenie_w_labiryncie = polozenie_w_labiryncie + 1
-                Ruch_Lewo()
-                Ruch_Lewo()
-                Ruch_Przod()
+                Update_wylania_wody()
             }
         } else if (Orientacja_Robota == 2) {
-            if (Labirynt[polozenie_w_labiryncie - 1] < Labirynt[polozenie_w_labiryncie] && Czujnik_Prawy > 60) {
+            if (Labirynt[polozenie_w_labiryncie - 1] < Labirynt[polozenie_w_labiryncie] && Czujnik_Prawy > Limit_Prawo) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie - 1
                 Ruch_Obrot_Prawo()
                 Ruch_Przod()
-            } else if (Labirynt[polozenie_w_labiryncie - (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && makerbit.getUltrasonicDistance(DistanceUnit.CM) > 5) {
+            } else if (Labirynt[polozenie_w_labiryncie - (Wilekosc_Labiryntu_X + 1)] < Labirynt[polozenie_w_labiryncie] && makerbit.getUltrasonicDistance(DistanceUnit.CM) > Limit_Przod) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie - 5
                 Ruch_Przod()
-            } else if (Labirynt[polozenie_w_labiryncie + 1] < Labirynt[polozenie_w_labiryncie] && Czujnik_Lewy > 60) {
+            } else if (Labirynt[polozenie_w_labiryncie + 1] < Labirynt[polozenie_w_labiryncie] && Czujnik_Lewy > Limit_Lewo) {
                 polozenie_w_labiryncie = polozenie_w_labiryncie + 1
                 Ruch_Lewo()
                 Ruch_Przod()
             } else {
-                polozenie_w_labiryncie = polozenie_w_labiryncie + 5
-                Ruch_Obrot_Prawo()
-                Ruch_Obrot_Prawo()
-                Ruch_Przod()
+                Update_wylania_wody()
             }
         }
     }
@@ -418,6 +428,7 @@ function Przeszukanie_Labiryntu () {
     basic.showString("P")
     basic.showNumber(polozenie_w_labiryncie)
 }
+let Kolejka_step = 0
 let polozenie_w_labiryncie = 0
 let idex_X2 = 0
 let Index_Y = 0
@@ -425,7 +436,6 @@ let l = 0
 let Czujnik_Przod = 0
 let Czujnik_Lewy = 0
 let Czujnik_Prawy = 0
-let Sciany_Labiryntu: number[] = []
 let Labirynt: number[] = []
 let Orientacja_Robota = 0
 let Wielkosc_Labiryntu_Y2 = 0
@@ -433,13 +443,20 @@ let Wilekosc_Labiryntu_X = 0
 let Labirynt_Y = 0
 let Labirynt_X = 0
 let Set_Up_Target = 0
+let Limit_Lewo = 0
+let Limit_Prawo = 0
+let Limit_Przod = 0
 let Kolejka: number[] = []
 let test: number[] = []
 let k = 0
 let lista: number[] = []
+let Sciany_Labiryntu: number[] = []
 motor.motorStopAll()
 serial.writeLine("MicroMouse")
 makerbit.connectUltrasonicDistanceSensor(DigitalPin.P15, DigitalPin.P16)
+Limit_Przod = 7
+Limit_Prawo = 70
+Limit_Lewo = 70
 Set_Up_Target = 0
 Labirynt_X = 0
 Labirynt_Y = 0
@@ -455,7 +472,7 @@ let Ilosc_komorek_w_labiryncie2 = Wielkosc_Labiryntu_Y2 * Wilekosc_Labiryntu_X +
 Labirynt = []
 Sciany_Labiryntu = []
 Wgrani_labiryntu_bez_scian(Ilosc_komorek_w_labiryncie2)
-basic.showString("TARGET")
+basic.showString("T")
 serial.writeLine("Sciany Labiryntu")
 // Sciany W labiryncie
 // 
